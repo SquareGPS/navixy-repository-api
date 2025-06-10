@@ -1,0 +1,195 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Navixy Repository API",
+    "version": "0.1.0",
+    "description": "Placeholder specification for Navixy Repository API - to be updated with actual API definition",
+    "contact": {
+      "name": "API Support",
+      "email": "api-support@navixy.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.navixy.com/v1",
+      "description": "Production server (placeholder)"
+    },
+    {
+      "url": "https://staging-api.navixy.com/v1",
+      "description": "Staging server (placeholder)"
+    }
+  ],
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health check endpoint",
+        "description": "Returns the health status of the API (placeholder endpoint)",
+        "operationId": "getHealth",
+        "tags": ["System"],
+        "responses": {
+          "200": {
+            "description": "API is healthy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "healthy"
+                    },
+                    "timestamp": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2025-06-10T12:00:00Z"
+                    },
+                    "version": {
+                      "type": "string",
+                      "example": "0.1.0"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/repositories": {
+      "get": {
+        "summary": "List repositories (placeholder)",
+        "description": "Placeholder endpoint for listing repositories",
+        "operationId": "listRepositories",
+        "tags": ["Repositories"],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number of items to return",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 100,
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of repositories",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Repository"
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "example": 42
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Repository": {
+        "type": "object",
+        "description": "Placeholder repository object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "repo-123"
+          },
+          "name": {
+            "type": "string",
+            "example": "sample-repository"
+          },
+          "description": {
+            "type": "string",
+            "example": "A sample repository description"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-06-10T12:00:00Z"
+          }
+        },
+        "required": ["id", "name"]
+      },
+      "Error": {
+        "type": "object",
+        "description": "Error response object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "example": "Bad Request"
+          },
+          "message": {
+            "type": "string",
+            "example": "The request could not be understood by the server"
+          },
+          "code": {
+            "type": "integer",
+            "example": 400
+          }
+        },
+        "required": ["error", "message", "code"]
+      }
+    },
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key",
+        "description": "Placeholder API key authentication"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "System",
+      "description": "System-level operations"
+    },
+    {
+      "name": "Repositories",
+      "description": "Repository management operations (placeholder)"
+    }
+  ]
+}
